@@ -16,20 +16,108 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.apache.nifi</groupId>
-        <artifactId>nifi-nar-bundles</artifactId>
-        <version>1.5.0</version>
-    </parent>
-
-    <groupId>teams</groupId>
-    <artifactId>nifi_notify_teams</artifactId>
-    <version>1.5</version>
+    <groupId>org.apache.nifi</groupId>
+    <artifactId>nifi-notify-teams</artifactId>
+    <version>1.15.3</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <!-- Dependency versions -->
+        <commons-collections4.version>4.2</commons-collections4.version>
+        <commons-compress.version>1.21</commons-compress.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <commons.io.version>2.8.0</commons.io.version>
+        <groovy-eclipse-batch.version>2.5.6-01</groovy-eclipse-batch.version>
+        <junit.version>4.13.2</junit.version>
+        <mockito-core.version>3.12.4</mockito-core.version>
+        <nifi.version>1.15.3</nifi.version>
+        <slf4j-simple.version>1.7.32</slf4j-simple.version>
+
+        <java.version>1.8</java.version>
+
+        <!-- Maven plugin versions -->
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <nifi-nar-maven-plugin.version>1.3.3</nifi-nar-maven-plugin.version>
+    </properties>
+
     <modules>
-        <module>nifi-nifi_notify_teams-processors</module>
-        <module>nifi-nifi_notify_teams-nar</module>
+        <module>nifi-notify-teams-processors</module>
+        <module>nifi-notify-teams-nar</module>
     </modules>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.2</version>
+                    <configuration>
+                        <forkCount>1</forkCount>
+                        <reuseForks>false</reuseForks>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <!--  <release>${java.version}</release> -->
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-eclipse-batch</artifactId>
+                        <version>${groovy-eclipse-batch.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <detectJavaApiLink>false</detectJavaApiLink>
+                    <javadocVersion>${java.version}</javadocVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.nifi</groupId>
+                <artifactId>nifi-nar-maven-plugin</artifactId>
+                <version>${nifi-nar-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <enforceDocGeneration>true</enforceDocGeneration>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
