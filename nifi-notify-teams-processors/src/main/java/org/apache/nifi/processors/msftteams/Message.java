@@ -1,4 +1,4 @@
-package teams.processors.nifi-notify-teams;
+package org.apache.nifi.processors.msftteams;
 
 public class Message {
 

@@ -22,6 +22,9 @@
     <packaging>pom</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.java.version>1.8</project.java.version>
         <!-- Dependency versions -->
         <commons-collections4.version>4.2</commons-collections4.version>
         <commons-compress.version>1.21</commons-compress.version>
@@ -32,8 +35,6 @@
         <mockito-core.version>3.12.4</mockito-core.version>
         <nifi.version>1.15.3</nifi.version>
         <slf4j-simple.version>1.7.32</slf4j-simple.version>
-
-        <java.version>1.8</java.version>
 
         <!-- Maven plugin versions -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -66,8 +67,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>${project.java.version}</source>
+                    <target>${project.java.version}</target>
                     <!--  <release>${java.version}</release> -->
                     <encoding>UTF-8</encoding>
                 </configuration>
@@ -98,7 +99,7 @@
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <detectJavaApiLink>false</detectJavaApiLink>
-                    <javadocVersion>${java.version}</javadocVersion>
+                    <javadocVersion>${project.java.version}</javadocVersion>
                 </configuration>
                 <executions>
                     <execution>

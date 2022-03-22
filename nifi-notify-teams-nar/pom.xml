@@ -32,6 +32,7 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.nifi</groupId>
             <artifactId>nifi-notify-teams-processors</artifactId>
             <version>1.15.3</version>
         </dependency>
